@@ -3,10 +3,6 @@
 # Syntax: update.sh
 # Author: fr34kyn01535 & Cory Redmond
 # Note: To make sure Steam Guard is not bugging you better create a new Steam account and disable Steam Guard
-
-STEAM_USER=$( cat ~/.steam_user )
-STEAM_PASS=$( cat ~/.steam_pass )
-ROCKET_UUID=$( cat ~/.rocket_id )
 STEAMCMD_HOME="./steamcmd"
 UNTURNED_HOME="./unturned"
 
