@@ -3,7 +3,7 @@ FROM ubuntu
 EXPOSE 27015/udp
 VOLUME ["/home/container/rocket/unturned/Servers/"]
 
-useradd -m -d /home/container container
+RUN useradd -m -d /home/container container
 RUN apt-get update && apt-get install -y apt-utils cron ca-certificates lib32gcc1 unzip net-tools lib32stdc++6 lib32z1 lib32z1-dev curl wget screen tmux libmono-cil-dev mono-runtime
 
 RUN mkdir -p /home/container/rocket/steamcmd && curl -s http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar -v -C /home/rocket/steamcmd -zx
