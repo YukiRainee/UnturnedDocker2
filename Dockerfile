@@ -8,8 +8,8 @@ RUN apt-get update && apt-get install -y apt-utils cron ca-certificates lib32gcc
 
 RUN mkdir -p /home/container/rocket/steamcmd
 RUN curl -s http://media.steampowered.com/installer/steamcmd_linux.tar.gz
-RUN tar -v -C /home/rocket/steamcmd -zx
-RUN mkdir -p /home/rocket/unturned
+RUN tar -v -C /home/container/rocket/steamcmd -zx
+RUN mkdir -p /home/container/rocket/unturned
 
 ADD bash/start.sh /home/container/rocket/start.sh
 RUN chmod a+x /home/container/rocket/start.sh
