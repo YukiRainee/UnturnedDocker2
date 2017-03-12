@@ -23,5 +23,6 @@ ADD credentials/STEAM_USERNAME /root/.steam_user
 ADD credentials/STEAM_PASSWORD /root/.steam_pass
 ADD credentials/ROCKET_API_KEY /root/.rocket_id
 
-ONBUILD USER root
-ONBUILD run /home/container/rocket/update.sh
+COPY        ./update.sh /update.sh
+COPY        ./start.sh  /start.sh
+CMD         ["/bin/bash", "/update.sh"]
