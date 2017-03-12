@@ -7,7 +7,7 @@ RUN useradd -m -d /home/container container
 RUN apt-get update && apt-get install -y apt-utils cron ca-certificates lib32gcc1 unzip net-tools lib32stdc++6 lib32z1 lib32z1-dev curl wget screen tmux libmono-cil-dev mono-runtime
 
 RUN mkdir -p /home/container/rocket/steamcmd
-RUN curl -s http://media.steampowered.com/installer/steamcmd_linux.tar.gz
+RUN curl -s https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
 RUN tar -xzvf steamcmd_linux.tar.gz
 RUN mkdir -p /home/container/rocket/unturned
 
