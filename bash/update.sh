@@ -19,10 +19,9 @@ fi
 ./steamcmd.sh +@sSteamCmdForcePlatformBitness 32 +login "$STEAM_USER" "$STEAM_PASS" +force_install_dir ../unturned +app_update 304930 validate +exit
 # The Unturned 64 bit build seems to not work for some reason...
 
-rm -fR .update_rocket
 mkdir .update_rocket
 cd .update_rocket/
-wget -N -q "https://ci.rocketmod.net/job/Rocket.Unturned%20Linux/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip"
+wget -o Rocket.zip "https://ci.rocketmod.net/job/Rocket.Unturned%20Linux/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip"
 unzip Rocket.zip
 mv *.dll ../../unturned/Unturned_Headless_Data/Managed/
 mv *.exe ../../unturned/
