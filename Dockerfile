@@ -23,6 +23,6 @@ ADD credentials/STEAM_USERNAME /root/.steam_user
 ADD credentials/STEAM_PASSWORD /root/.steam_pass
 ADD credentials/ROCKET_API_KEY /root/.rocket_id
 
-COPY        ./update.sh /update.sh
-COPY        ./start.sh  /start.sh
+COPY        ./bash/update.sh /update.sh
+COPY        ./bash/start.sh  /start.sh
 CMD         ["/bin/bash", "/update.sh"]
