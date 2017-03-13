@@ -6,7 +6,7 @@
 #CONFIG
 INSTANCE_NAME=$1
 STEAMCMD_HOME="./steamcmd"
-UNTURNED_HOME="./unturned"
+UNTURNED_HOME="./steamcmd/unturned"
 
 #COLORS
 RED='\033[0;31m'
