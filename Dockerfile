@@ -1,6 +1,5 @@
-FROM ubuntu
+FROM ubuntu:15.10
 
-EXPOSE 27015/udp
 VOLUME ["/home/container/rocket/unturned/Servers/"]
 
 COPY ./start.sh /start.sh
@@ -14,8 +13,8 @@ ENV HOME=/home/container USER=container
 
 WORKDIR /home/container
 
-RUN mkdir -p /home/container/rocket/steamcmd
-RUN mkdir -p /home/container/rocket/unturned
+RUN mkdir -p /rocket/steamcmd
+RUN mkdir -p /rocket/unturned
 
 ADD ./start.sh /home/container/rocket/start.sh
 RUN chmod a+x /home/container/rocket/start.sh
