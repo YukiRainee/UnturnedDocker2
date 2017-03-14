@@ -7,14 +7,14 @@ RUN chmod +x /start.sh
 
 RUN apt-get update && apt-get install -y apt-utils cron ca-certificates lib32gcc1 unzip net-tools lib32stdc++6 lib32z1 lib32z1-dev curl wget screen tmux libmono-cil-dev mono-runtime
 
+RUN mkdir -p /rocket/steamcmd
+RUN mkdir -p /rocket/unturned
+
 RUN useradd -m -d /home/container container
 USER container
 ENV HOME=/home/container USER=container
 
 WORKDIR /home/container
-
-RUN mkdir -p /rocket/steamcmd
-RUN mkdir -p /rocket/unturned
 
 ADD ./start.sh /home/container/rocket/start.sh
 RUN chmod a+x /home/container/rocket/start.sh
