@@ -18,6 +18,9 @@ RUN useradd -m -d /home/container container
 USER container
 ENV HOME=/home/container USER=container
 
+RUN mkdir -p /home/container/rocket/steamcmd
+RUN mkdir -p /home/container/rocket/unturned
+
 WORKDIR /home/container
 
 RUN cd steamcmd
