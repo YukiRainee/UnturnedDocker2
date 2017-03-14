@@ -10,12 +10,13 @@ RUN apt-get update && apt-get install -y apt-utils cron ca-certificates lib32gcc
 ADD ./start.sh /home/container/rocket/start.sh
 RUN chmod a+x /home/container/rocket/start.sh
 
+RUN useradd -m -d /home/container container
+
 RUN (crontab -l ; echo "* * * * * /home/container/rocket/steamcmd/start.sh rocket") | sort - | uniq - | crontab -
 
 RUN mkdir -p /home/container/rocket/steamcmd
 RUN mkdir -p /home/container/rocket/unturned
 
-RUN useradd -m -d /home/container container
 USER container
 ENV HOME=/home/container USER=container
 
