@@ -14,10 +14,6 @@ ADD ./start.sh /home/container/rocket/start.sh
 RUN chmod a+x /home/container/rocket/start.sh
 RUN (crontab -l ; echo "* * * * * /home/container/rocket/steamcmd/start.sh rocket") | sort - | uniq - | crontab -
 
-ADD bash/update.sh /home/container/rocket/update.sh
-RUN chmod a+x /home/container/rocket/update.sh
-RUN (crontab -l ; echo "@daily /home/container/rocket/steamcmd/update.sh") | sort - | uniq - | crontab -
-
 RUN mkdir -p steamcmd
 RUN mkdir -p unturned
 
