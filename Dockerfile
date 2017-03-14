@@ -10,12 +10,6 @@ RUN apt-get update && apt-get install -y apt-utils cron ca-certificates lib32gcc
 RUN mkdir -p /rocket/steamcmd
 RUN mkdir -p /rocket/unturned
 
-RUN useradd -m -d /home/container container
-USER container
-ENV HOME=/home/container USER=container
-
-WORKDIR /home/container
-
 ADD ./start.sh /home/container/rocket/start.sh
 RUN chmod a+x /home/container/rocket/start.sh
 RUN (crontab -l ; echo "* * * * * /home/container/rocket/steamcmd/start.sh rocket") | sort - | uniq - | crontab -
@@ -26,6 +20,12 @@ RUN (crontab -l ; echo "@daily /home/container/rocket/steamcmd/update.sh") | sor
 
 RUN mkdir -p steamcmd
 RUN mkdir -p unturned
+
+RUN useradd -m -d /home/container container
+USER container
+ENV HOME=/home/container USER=container
+
+WORKDIR /home/container
 
 RUN cd steamcmd
 RUN wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
