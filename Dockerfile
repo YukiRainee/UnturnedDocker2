@@ -1,33 +1,25 @@
-FROM ubuntu:15.10
+FROM ubuntu
 
-VOLUME ["/home/container/rocket/unturned/Servers/"]
+EXPOSE 27015/udp
+VOLUME ["/home/rocket/unturned/Servers/"]
 
-COPY ./start.sh /start.sh
-RUN chmod +x /start.sh
+RUN useradd -ms /bin/bash rocket
+RUN apt-get update && apt-get install -y apt-utils cron ca-certificates lib32gcc1 unzip net-tools lib32stdc++6 lib32z1 lib32z1-dev curl wget screen tmux libmono-cil-dev mono-runtime
 
-RUN apt-get update && apt-get install -y steamcmd apt-utils cron ca-certificates lib32gcc1 unzip net-tools lib32stdc++6 lib32z1 lib32z1-dev curl wget screen tmux libmono-cil-dev mono-runtime
+RUN mkdir -p /home/rocket/steamcmd && curl -s http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar -v -C /home/rocket/steamcmd -zx
+RUN mkdir -p /home/rocket/unturned
 
-ADD ./start.sh /home/container/rocket/start.sh
-RUN chmod a+x /home/container/rocket/start.sh
+ADD bash/start.sh /home/rocket/start.sh
+RUN chmod a+x /home/rocket/start.sh
+RUN (crontab -l ; echo "* * * * * /home/rocket/steamcmd/start.sh rocket") | sort - | uniq - | crontab -
 
-RUN useradd -m -d /home/container container
+ADD bash/update.sh /home/rocket/update.sh
+RUN chmod a+x /home/rocket/update.sh
+RUN (crontab -l ; echo "@daily /home/rocket/steamcmd/update.sh") | sort - | uniq - | crontab -
 
-RUN (crontab -l ; echo "* * * * * /home/container/rocket/steamcmd/start.sh rocket") | sort - | uniq - | crontab -
+ADD credentials/STEAM_USERNAME /root/.steam_user
+ADD credentials/STEAM_PASSWORD /root/.steam_pass
+ADD credentials/ROCKET_API_KEY /root/.rocket_id
 
-RUN mkdir -p /home/container/rocket/unturned
-
-USER container
-ENV HOME=/home/container USER=container
-
-RUN ./steamcmd +@sSteamCmdForcePlatformBitness 32 +login "$STEAM_USER" "$STEAM_PASS" +force_install_dir /unturned +app_update 304930 validate +exit
-
-RUN mkdir .update_rocket
-RUN cd .update_rocket
-RUN wget "https://ci.rocketmod.net/job/Rocket.Unturned%20Linux/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip"
-RUN unzip Rocket.zip
-RUN mkdir -p steamcmd/unturned/Unturned_Headless_Data/Managed
-RUN mv Modules/Rocket.Unturned/*.dll steamcmd/unturned/Unturned_Headless_Data/Managed/
-
-RUN mv RocketLauncher.exe steamcmd/unturned
-
-CMD         ["/bin/bash", "/start.sh"]
+ONBUILD USER root
+ONBUILD run /home/rocket/update.sh
