@@ -6,7 +6,7 @@
 
 STEAM_USER=$( cat ~/.steam_user )
 STEAM_PASS=$( cat ~/.steam_pass )
-ROCKET_UUID=$( cat ~/.rocket_id )
+
 STEAMCMD_HOME="./steamcmd"
 UNTURNED_HOME="./unturned"
 
@@ -26,7 +26,7 @@ fi
 rm -fR .update_rocket
 mkdir .update_rocket
 cd .update_rocket/
-wget -N -q "http://api.rocketmod.net/download/unturned-linux/latest/$ROCKET_UUID/Rocket.zip"
+wget -N -q "https://ci.rocketmod.net/job/Rocket.Unturned%20Linux/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip"
 unzip Rocket.zip
 mv *.dll ../../unturned/Unturned_Headless_Data/Managed/
 mv *.exe ../../unturned/
